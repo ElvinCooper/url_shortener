@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} Etiquetador de URL{% endblock %}
+
+{% block main %}
+  <div class="container" >
+    <div class="contenedor" style="display: flex; justify-content: center;">
+      <div class="card-deck mb-3" style="display: flex; flex-direction: row; justify-content: space-between; width: 80%;">
+        <div class="card mb-4 shadow-sm" style="flex: 1; margin-right: 10px;">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal text-center">Website</h4>
+          </div>
+          <div class="card-body">
+            <form action="mi-url" method="post">
+              <label for="url"  > Web url </label> </br>
+              <input type="url" class="form-control" name="url" value="" required style="width: 400px;">
+              </br>
+              <label for="code"  >Short Name</label>  </br>
+              <input type="text" class="form-control" name="code" value="" required style="width: 400px;">
+              </br>  
+              <button type="submit" class="btn btn-primary btn-largo" style="width: 400px;" name="corto"> Shorten</button>
+            </form>
+           </div>
+          </div>          
+          <div class="card mb-4 shadow-sm" style="flex: 1; margin-right: 10px;">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal text-center">File</h4>
+            </div>
+            <div class="card-body">
+              <form action="your-url" method="post" enctype="multipart/form-data">
+                <label for="code">Short Name</label>
+                <input type="text" class="form-control" name="code" id="code" value="" required style="width: 400px;">
+                  </br>
+                <label for="long_url">Website URL</label>
+                <input type="file" class="form-control" name="file" value="" id="file" required style="width: 400px;">
+                  <br>
+                <button type="submit" class="btn btn-primary btn-largo" style="width: 400px;" name="corto">Shorten</button>
+              </form>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if codes %}
+    <div class="container">
+      <h2> Codes created </h2> 
+      <ul>
+        {% for code in codes %}
+          <a href="{{ url_for('urlshort.redirect_to_url', code=code) }} ">
+            <li> {{ code }} </li> 
+          </a>  
+        {% endfor %}  
+      </ul>    
+      {% endif %}
+    </div>  
+  </div>  
+{% endblock %}
